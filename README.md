@@ -2,7 +2,7 @@
 
 Repo for some basic python scripts for pulling data and printing data from Ruckus SmartZone's API.
 
-Please note I am writing these as a training exercise for myself. Both new to python, git and has been a long time since I have coded.
+Please note I am writing these as a training exercise for myself. Both new to python, git and it has been a long time since I have coded.
 
 Tested against a SZ100 cluster of 2 running 3.6.2, please note these scripts will not work as is with vSZ-H only vSZ-E. Would recommend using a read-only account.
 
