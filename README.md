@@ -1,6 +1,6 @@
 # Ruckus SmartZone API
 
-Repo for some basic python scripts for pulling data and printing data from Ruckus SmartZone's API.
+Repo for some basic python scripts for pulling and printing data from Ruckus SmartZone's API.
 
 Please note I am writing these as a training exercise for myself. Both new to python, git and it has been a long time since I have coded.
 
