@@ -73,7 +73,7 @@ for row in cleaned_zones:
 
 # The below block will check if there is an assigned template if not then it will ask for a WLAN name and the Zone name and check if they exist.
 # Below is ugly and needs rewiritng as a While statement
-if wlan_template_id == "":
+if wlan_template_id == "" or zone_template_id == "":
     wlan_template_name = input("Please enter a WLAN name to display the details of:")
     zone_template_name = input("Please enter the zone the WLAN is part of:")
     for row in cleaned_all_zone_wlan:

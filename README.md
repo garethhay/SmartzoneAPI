@@ -6,7 +6,7 @@ Please note the following:
 I am new to both python and git. I am writing these as a training exercise for myself and I have not written code for an extended period.
 I have tested this against a SZ100 cluster of 2 running 3.6.2. These scripts will not work in the current state with vSZ-H and will only work correctly with vSZ-E. I would recommend using a read-only account.
 
-### Each script will need the following variables which will need modifing for your own configuration:
+### Each script will need the following variables which will need modifying for your own configuration:
 
 * `baseurl`
     * "https://general.direction.com:8443/wsg/api/public/v6_1/" #replace "general.direction.com" with either the host name or IP of a member of the cluster
@@ -39,4 +39,4 @@ Format of the lists are:
 
 This script will print the JSON returned for an individual WLAN. If either of the variables `wlan_template_id` or `zone_template_id` are blank it will ask for the names of the WLAN and the zone to be inputted. The script will make an attempt to account for a spelling mistake in the WLAN name before quitting if it can not find the WLAN in the zone.
 
-It will save the WLAN's details in a varible called `wlan_template`.
+It will save the WLAN's details in a variable called `wlan_template`.
