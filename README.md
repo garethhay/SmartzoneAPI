@@ -2,11 +2,11 @@
 
 Repo for some basic python scripts for pulling and printing data from Ruckus SmartZone's API.
 
-Please note I am writing these as a training exercise for myself. Both new to python, git and it has been a long time since I have coded.
+Please note the following:
+I am new to both python and git. I am writing these as a training exercise for myself and I have not written code for an extended period.
+I have tested this against a SZ100 cluster of 2 running 3.6.2. These scripts will not work in the current state with vSZ-H and will only work correctly with vSZ-E. I would recommend using a read-only account.
 
-Tested against a SZ100 cluster of 2 running 3.6.2, please note these scripts will not work as is with vSZ-H only vSZ-E. Would recommend using a read-only account.
-
-### Each script will need the below variables modifying for your own environment:
+### Each script will need the following variables which will modify your own environment:
 
 * `baseurl`
     * "https://general.direction.com:8443/wsg/api/public/v6_1/" #replace "general.direction.com" with either the host name or IP of a member of the cluster
@@ -21,7 +21,7 @@ The API documentation is below for reference:
 
 ## login_getzone.py
 
-This will return all the configured zones on the cluster and print them out. At the end of the script you end up with a list of lists called `cleaned_zones`.
+This will return all the configured zones on the cluster and print them out. The script will output a list of lists called `cleaned_zones`.
 
 Format of the lists are:
 
