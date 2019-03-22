@@ -14,14 +14,14 @@ szpassword = "" #Password for the above account
 
 headers_template = {'Content-Type': "application/json;charset=UTF-8"}
 
-loginpayload = '{  "username": "' + szusername + '",\r\n  "password": "' + szpassword + '"}'
+login_payload = '{  "username": "' + szusername + '",\r\n  "password": "' + szpassword + '"}'
 
 
 def ruckus_post(url,data,headers = headers_template,check_cert = False):
     output = session.post(baseurl + url, data=data, headers=headers, verify=check_cert, cookies=jar)
     return output
 
-get_login_session_cookie = ruckus_post("session",loginpayload) #This uses the ruckus_post above to get a session valid session cookie into the cookie jar
+get_login_session_cookie = ruckus_post("session",login_payload) #This uses the ruckus_post above to get a session valid session cookie into the cookie jar
 
 
 def ruckus_get(url,headers = headers_template,check_cert = False):
@@ -61,7 +61,7 @@ cleaned_zones = clean_ruckus_list(zones)
 print("\n")
 print("-" * 50)
 print("\n")
-print("The AP zones configured on this szcluster are:")
+print("The zones configured on this szcluster are:")
 print("\n")
 for row in cleaned_zones:
     print("Name: {} and ID: {}".format(row[0],row[1]))

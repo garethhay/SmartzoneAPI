@@ -34,3 +34,9 @@ This script builds on `login_getzone.py` to take the `cleaned_zones` list of lis
 Format of the lists are:
 
 `[name_of_zone,zone_id,name_of_WLAN,WLAN_id]`
+
+## login_getwlan_details.py
+
+This script will print the JSON returned for an individual WLAN. If either of the variables `wlan_template_id` or `zone_template_id` are blank it will ask for the names of the WLAN and the zone to be inputted. The script will make an attempt to account for a spelling mistake in the WLAN name before quitting if it can not find the WLAN in the zone.
+
+It will save the WLAN's details in a varible called `wlan_template`.

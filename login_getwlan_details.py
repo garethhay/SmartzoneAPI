@@ -1,5 +1,6 @@
 import requests
 import json
+import sys
 
 session = requests.Session()
 jar = requests.cookies.RequestsCookieJar()
@@ -17,6 +18,8 @@ headers_template = {'Content-Type': "application/json;charset=UTF-8"}
 
 login_payload = '{  "username": "' + sz_username + '",\r\n  "password": "' + sz_password + '"}'
 
+wlan_template_id = ""
+zone_template_id = ""
 
 def ruckus_post(url,data,headers = headers_template,check_cert = False):
     output = session.post(baseurl + url, data=data, headers=headers, verify=check_cert, cookies=jar)
@@ -68,21 +71,46 @@ for row in cleaned_zones:
     wlan = ruckus_list(jsonwlan)
     cleaned_all_zone_wlan.extend(clean_ruckus_list(wlan,zone_name,zone_id))
 
-print("\n")
-print("-" * 50)
-print("\n")
-print("The WLANs configured on this szcluster are:")
-print("\n")
-zone_print = ""
+# The below block will check if there is an assigned template if not then it will ask for a WLAN name and the Zone name and check if they exist.
+# Below is ugly and needs rewiritng as a While statement
+if wlan_template_id == "":
+    wlan_template_name = input("Please enter a WLAN name to display the details of:")
+    zone_template_name = input("Please enter the zone the WLAN is part of:")
+    for row in cleaned_all_zone_wlan:
+        if wlan_template_name == row[2] and zone_template_name == row[0]:
+            print("Using {} from {} as the template.".format(wlan_template_name,zone_template_name))
+            wlan_template_id = row[3]
+            zone_template_id = row[1]
+            break
+        elif wlan_template_name[:4] in row[2] and zone_template_name == row[0]: #This will try and account for spelling mistakes in the WLAN name by offering a WLAN that matches with the first 3 charachers in the correct zone
+            confirm = input("Did you mean {} from {}? Y/N".format(row[2],row[0]))
+            if confirm.lower() == "y":
+                wlan_template_id = row[3]
+                zone_template_id = row[1]
+                break
+            else:
+                sys.exit("WLAN name not found")
+
+# Check to confirm we have an id for both the WLAN and it's zone before continuing and check the WLAN is actually in that zone it was entered directly
+if wlan_template_id == "":
+    sys.exit("No WLAN id")
+if zone_template_id == "":
+    sys.exit("No Zone id to use with the WLAN")
+
+wlan_in_zone = False
+
 for row in cleaned_all_zone_wlan:
-    if zone_print == row[0]:
-        print("    Name: {} and ID: {}".format(row[2],row[3]))
-    else:
-        zone_print = row[0]
-        print("-" * 5)
-        print("\n")
-        print("{} zone's WLAN are:".format(row[0]))
-        print("\n")
-        print("    Name: {} and ID: {}".format(row[2],row[3]))
-print("\n")
-print("-" * 50)
+    if zone_template_id == row[1] and wlan_template_id == row [3]:
+        wlan_in_zone = True
+        break
+
+if wlan_in_zone != True:
+    sys.exit("WLAN id not in Zone id")
+
+# Below we are going to request the details of the WLAN selected
+
+wlan_template_json = ruckus_get("rkszones/{}/wlans/{}".format(zone_template_id,wlan_template_id))
+
+wlan_template = json.loads(wlan_template_json.text)
+
+print(json.dumps(wlan_template, indent=4, sort_keys=True))
