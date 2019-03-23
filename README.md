@@ -38,6 +38,6 @@ Format of the lists are:
 
 ## login_getwlan_details.py
 
-Returns and prints the JSON from individual WLAN. If  `wlan_template_id`  or `zone_template_id`  are blank program will ask for the names of the WLAN and the zone to be inputted. The script attempts to account for spelling mistakes in the WLAN name before quitting if WLAN is not found in the zone.
+Returns and prints the JSON from individual WLAN. If  `wlan_template_id`  or `zone_template_id`  are blank the program will ask for the names of the WLAN and the zone to be inputted. The script attempts to account for spelling mistakes in the WLAN name before quitting if WLAN is not found in the zone.
 
 It will save the WLAN's details in a variable called `wlan_template`.
