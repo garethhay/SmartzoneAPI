@@ -87,8 +87,8 @@ def wlan_input():
     wlan_input_id = ""
     print('-' * 50)
     print('\n')
-    wlan_input_name = input("Please enter a WLAN name:")
-    zone_input_name = input("Please enter the zone the WLAN is part of:")
+    wlan_input_name = input("Please enter a WLAN name : ")
+    zone_input_name = input("Please enter the zone the WLAN is part of : ")
     print("-" * 5)
     wlan_input_name = wlan_input_name.lower()
     zone_input_name = zone_input_name.lower()
@@ -106,7 +106,7 @@ def wlan_input():
             output = zone_input_id, wlan_input_id, wlan_compare_input
             return output
         elif wlan_input_name[:4] in wlan_compare_input and zone_input_name == zone_compare_input:
-            confirm = input("Did you mean {} from {}? Y/N".format(row[2],row[0]))
+            confirm = input("Did you mean {} from {}? Y/N : ".format(row[2],row[0]))
             if confirm.lower() == "y":
                 wlan_input_id = row[3]
                 zone_input_id = row[1]
