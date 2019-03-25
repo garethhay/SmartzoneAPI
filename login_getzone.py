@@ -1,6 +1,10 @@
 import requests
 import json
 
+# Only use when testing, surpresses warnings about insecure servers
+#from requests.packages.urllib3.exceptions import InsecureRequestWarning
+#requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 session = requests.Session()
 jar = requests.cookies.RequestsCookieJar()
 
@@ -11,20 +15,21 @@ baseurl = "https://general.direction.com:8443/wsg/api/public/v6_1/" #replace "ge
 
 szusername = "" #Enter a username with read privages to everything you want to access
 szpassword = "" #Password for the above account
+check_cert = True # Change to false if using selfsigned certs or cert chain is not on the machine running the script
 
 headers_template = {'Content-Type': "application/json;charset=UTF-8"}
 
 login_payload = '{  "username": "' + szusername + '",\r\n  "password": "' + szpassword + '"}'
 
 
-def ruckus_post(url,data,headers = headers_template,check_cert = False):
+def ruckus_post(url,data,headers = headers_template):
     output = session.post(baseurl + url, data=data, headers=headers, verify=check_cert, cookies=jar)
     return output
 
 get_login_session_cookie = ruckus_post("session",login_payload) #This uses the ruckus_post above to get a session valid session cookie into the cookie jar
 
 
-def ruckus_get(url,headers = headers_template,check_cert = False):
+def ruckus_get(url,headers = headers_template):
     output = session.get(baseurl + url, headers=headers, verify=check_cert, cookies=jar)
     return output
 
