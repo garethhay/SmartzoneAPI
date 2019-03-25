@@ -86,6 +86,7 @@ for row in cleaned_all_zone_wlan:
         zone_print = row[0]
         print("-" * 5)
         print("\n")
+        print(row[1])
         print("{} zone's WLAN are:".format(row[0]))
         print("\n")
         print("    Name: {} and ID: {}".format(row[2],row[3]))
