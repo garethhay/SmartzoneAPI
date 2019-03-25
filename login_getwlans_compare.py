@@ -145,21 +145,22 @@ zone_comparison_id, wlan_comparison_id, wlan_comparison_name = wlan_input()
 print("\n")
 print("-" * 100)
 #Do the get and JSON.loads to receive both WLAN details
-wlan_template_json = ruckus_get("rkszones/{}/wlans/{}".format(zone_template_id,wlan_template_id))
-wlan_comparison_json = ruckus_get("rkszones/{}/wlans/{}".format(zone_comparison_id,wlan_comparison_id))
+wlan_template_json = ruckus_get("rkszones/{}/wlans/{}".format( zone_template_id, wlan_template_id))
+wlan_comparison_json = ruckus_get("rkszones/{}/wlans/{}".format( zone_comparison_id, wlan_comparison_id))
 
 wlan_template = json.loads(wlan_template_json.text)
 wlan_comparison = json.loads(wlan_comparison_json.text)
 
-ignore_list = ['id','name','ssid','encryption.passphrase','bssid','zoneId','description']
+ignore_list = ['id', 'name', 'ssid', 'encryption.passphrase', 'bssid', 'zoneId', 'description']
 
-wlans_compared = diff(wlan_template,wlan_comparison, ignore = ignore_list)
+#use diff to return a list of tuples with the differences between the two WLANs
+wlans_compared = diff( wlan_template, wlan_comparison, ignore = ignore_list)
 
 print("\n")
-print("The differences between '{}' and '{}' are:".format(wlan_template_name,wlan_comparison_name))
+print("The differences between '{}' and '{}' are:".format( wlan_template_name, wlan_comparison_name))
 print("\n")
 for row in wlans_compared:
-    print("Type: {} | Where: {} | What: {}".format(row[0],row[1],row[2]))
+    print("Type: {} | Where: {} | What: {}".format( row[0], row[1], row[2]))
     print("-" * 5)
 print("\n")
 print("-" * 100)
