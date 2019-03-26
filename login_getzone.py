@@ -17,20 +17,28 @@ szusername = "" #Enter a username with read privages to everything you want to a
 szpassword = "" #Password for the above account
 check_cert = True # Change to false if using selfsigned certs or cert chain is not on the machine running the script
 
-headers_template = {'Content-Type': "application/json;charset=UTF-8"}
+login_headers_template = {'Content-Type': "application/json;charset=UTF-8"}
 
-login_payload = '{  "username": "' + szusername + '",\r\n  "password": "' + szpassword + '"}'
+login_payload = '{  "username": "' + sz_username + '",\r\n  "password": "' + sz_password + '"}'
 
+def ruckus_login(url,data):
+    output = session.post(baseurl + url, data=data, headers=login_headers_template, verify=check_cert)
+    return output
+#This uses the ruckus_post above to get a session valid session cookie into the cookie jar
+get_login_session_cookie = ruckus_login("session", login_payload)
+jar = get_login_session_cookie.cookies
 
-def ruckus_post(url,data,headers = headers_template):
-    output = session.post(baseurl + url, data=data, headers=headers, verify=check_cert, cookies=jar)
+headers_template = {
+                    'Content-Type': "application/json;charset=UTF-8",
+                    'Cookie': 'JSESSIONID='+ jar['JSESSIONID']
+                    }
+
+def ruckus_post(url,data):
+    output = session.post(baseurl + url, data=data, headers=headers_template, verify=check_cert)
     return output
 
-get_login_session_cookie = ruckus_post("session",login_payload) #This uses the ruckus_post above to get a session valid session cookie into the cookie jar
-
-
-def ruckus_get(url,headers = headers_template):
-    output = session.get(baseurl + url, headers=headers, verify=check_cert, cookies=jar)
+def ruckus_get(url):
+    output = session.get(baseurl + url, headers=headers_template, verify=check_cert)
     return output
 
 jsonzones = ruckus_get("rkszones") #Get the JSON data for the zones confiured on the cluster
