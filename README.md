@@ -5,7 +5,7 @@ Repository for basic python scripts to pull and print data from Ruckus SmartZone
 # Note
 
 I am new to both python and git and scripts are training exercises. I have not written code for an extended period.
-Program is tested against a SZ100 cluster of 2 running 3.6.2. These scripts work correctly with vSZ-E but not with vSZ-H. Read-only account is reccomended.
+Program is tested against a SZ100 cluster of 2 running 3.6.2 firmware and using v6_1 version of the API. These scripts work correctly with vSZ-E but not with vSZ-H. Read-only account is recommended.
 
 ### Each script will need the following variables which will need modifying for your own configuration:
 
