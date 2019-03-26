@@ -59,4 +59,6 @@ Returns and prints the differences in configuration of two different WLANs. Usef
 
 `ignore_list = ['id','name','ssid','encryption.passphrase','bssid','zoneId','description']`
 
-The results are saved in `wlans_compared`. The format is in the helper module documentation [here](https://dictdiffer.readthedocs.io/en/latest/).
+The results are saved in `wlans_compared`. A more detailed description of the output is in the helper module documentation [here](https://dictdiffer.readthedocs.io/en/latest/), otherwise a basic format is below.
+
+`[(type_of_difference,where_is_the_difference,the_difference)]`
